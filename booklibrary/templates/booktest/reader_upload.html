@@ -1,0 +1,18 @@
+{% extends 'booktest/layout.html' %}
+{% block title %}上传图片{% endblock %}
+{% block link %}
+    <h2>上传图片</h2>
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'booktest:upload' %}" enctype="multipart/form-data" method="post">
+        图片名：<input type="text" name="name">
+        <br>
+        排序：<input type="text" name="index">
+        <br>
+        选着图片：<input type="file" name="pic">
+        <br>
+        <input type="submit" value="提交">
+
+    </form>
+{% endblock %}

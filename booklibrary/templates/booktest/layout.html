@@ -1,0 +1,23 @@
+<!doctype html>
+<title> {% block title %} 图书管理系统 {% endblock %} </title>
+<link rel=stylesheet type=text/css href="/static/css/style.css">
+
+<link rel="stylesheet" type="text/css" href="/static/js/jquery/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="/static/js/jquery/bootstrap.css"/>
+<script src="/static/js/jquery/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/jquery/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<div class=page>
+  <h1>图书管理系统</h1>
+  <div class=navigation>
+    {% block link %}{% endblock %}
+    {% block linkcss %}{% endblock %}
+  </div>
+  <div class=body>
+
+    {% block body %}{% endblock %}
+   </div>
+  <div class=footer>
+     &mdash; 华中科技大学
+  </div>
+</div>
+    

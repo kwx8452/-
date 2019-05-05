@@ -1,0 +1,27 @@
+{% extends 'booktest/layout.html' %}
+{% block title %}HTML文本{% endblock %}
+
+{% block linkcss %}
+<script src="/static/tiny_mce/tiny_mce.js"></script>
+  <script type="text/javascript">
+    tinyMCE.init({
+        'mode':'textareas',
+        'theme':'advanced',
+        'width':680,
+        'height':400
+        });
+  </script>
+{% endblock %}
+
+
+{% block body %}
+    <form action="" method="post">
+        title:<input type="text" name="title">
+        <br>
+        message:
+        <br>
+        <textarea name="message" id="" cols="30" rows="10"></textarea>
+        <input type="submit" value="提交">
+    </form>
+
+{% endblock %}

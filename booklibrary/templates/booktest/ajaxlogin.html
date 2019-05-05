@@ -1,0 +1,38 @@
+{% extends 'booktest/layout.html' %}
+{% block title %}登录{% endblock %}
+{% block linkcss %}
+    <script src="/static/js/jquery/jquery-2.1.4.js"></script>
+    <script>
+        $(function(){
+            $('#username').blur(function(){
+                $.ajax({
+                    url:'/booktest/checkuser/',
+                    type:'post',
+                    data:{
+                        'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                        'username':$('#username').val()
+                    },
+                    success:function(data){
+                        $('#usernameinfo').text(data);
+                    }
+                })
+            })
+
+            $('#verifycodeimg').click(function(){
+                this.src = '/booktest/verifycode/'+"?time="+new Date().getTime()
+            })
+        })
+    </script>
+{% endblock %}
+
+{% block body %}
+    {% csrf_token %}
+    <form action="{% url 'booktest:ajaxlogin' %}" method="post">
+        登录账号：<input type="text" name="username" id="username"> <span id="usernameinfo"></span>
+        <br>
+        密码：<input type="password" name="password">
+        <br>
+        <img id="verifycodeimg" src="{% url 'booktest:verifycode' %}" alt="验证码加载失败"><input type="text" name="verifycode">
+        <input type="submit" value='登录'>
+    </form>
+{% endblock %}

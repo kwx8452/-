@@ -1,0 +1,56 @@
+{% extends "booktest/layout.html" %}
+{% block title%} 读者登录 {% endblock%}
+{% block link%}
+	<a href="{% url 'booktest:index' %}"> 返回   </a>|
+	<a href="{% url 'booktest:register' %}"> 注册 </a>
+{% endblock%}
+
+{% block linkcss %}
+    <script src="/static/js/jquery/jquery-2.1.4.js"></script>
+    <script>
+        $(function(){
+            $('#username').blur(function(){
+                $.ajax({
+                    url:'/booktest/checkuser/',
+                    type:'post',
+                    data:{
+                        'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                        'username':$('#username').val()
+                    },
+                    success:function(data){
+                        $('#usernameinfo').text(data);
+                    }
+                })
+            })
+
+            $('#verifycodeimg').click(function(){
+                this.src = '/booktest/verifycode/'+"?time="+new Date().getTime()
+            })
+        })
+    </script>
+{% endblock %}
+
+{% block body %}
+	<h2> 读者登录 </h2>
+	{% if error %}
+	<div class = error>
+	  <strong>Error : </strong> {{error}}
+	</div>
+	{% endif%}
+
+	{% csrf_token %}
+	<form action="{% url 'booktest:rlogin' %}" method=post>
+	  <dl>
+	    <dt>用户名: </dt>
+	    <dd><input type=text name=username size=30 value="{{ request.form.username}}"> </dd>
+	    <dt>密码:	 </dt>
+	    <dd><input type=password name=password size=30> </dd>
+	  </dl>
+		<p>
+			<img id="verifycodeimg" src="{% url 'booktest:verifycode' %}" alt="验证码加载失败"><input type="text" name="verifycode">
+		</p>
+	  <div class=actions>
+	    <input type=submit value="登录">
+	  </div>
+	</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'booktest/layout.html' %}
+
+{% block title %} 书目信息 {% endblock %}
+{% block link %} 
+	{% if book %}
+	<a href="{% url 'booktest:query' user.id %}"> 返回 </a>
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	{% if error %}
+	<div class=error>
+	  <strong>Errror : </strong> {{error}}
+	</div>
+	{% endif %}
+	<h2> 书目信息 </h2>
+	{% if book %}
+	<li> ISBN            	{{book.isbn}} </li>
+	<li> 书名        		{{book.bname}} </li>
+	<li> 作者        		{{book.author}} </li>	
+	<li> 出版社     	{{book.publisher}} </li>
+	<li> 出版日期   	{{book.publish_date}} </li>
+	{% endif %}
+	<div >
+	  <h2 > 借阅信息 </h2>
+	  {% if user  %}
+	  <li> 借阅者姓名 {{user.username}}</li>
+	  <li> 借阅日期  {{user.borrow_date}}</li>
+	  <li> 还书日期  {{user.return_date}}</li>
+	  {% else %}
+	  <li> 无 </li>
+	  {% endif %}
+	  <form action="{% url 'booktest:book' book.id %}" method=post>
+	    <div class=actions>
+	      <input type=submit value="借阅">
+	    </div>
+	  </form>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+
+    <script src="/static/js/jquery/jquery-2.1.4.js"></script>
+    <script>
+        $(function(){
+            $("#load").click(function(){
+                $.ajax({
+                    url:'/booktest/ajaxajax/',
+                    type:'post',
+                    data:{'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()},
+                    success:function(data){
+                        console.log(data);
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    {% csrf_token %}
+    <button id="load">点击LOAD</button>
+    <div id="info"></div>
+    <div id="info2"></div>
+
+</body>
+</html>
